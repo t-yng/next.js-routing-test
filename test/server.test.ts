@@ -1,11 +1,4 @@
-import next from 'next';
-import supertest from 'supertest';
-import express from 'express';
-import { setup } from './server/setup';
-
-const app = next({ dev: true });
-const server = setup(app, express());
-const agent = supertest(server);
+import { agent } from './libs/agent';
 
 test('バナナが取得できること', done => {
     agent.get('/api/banana')
@@ -16,4 +9,4 @@ test('バナナが取得できること', done => {
             '腐ったバナナ'
         ]
     }, done);
-})
+});
