@@ -1,19 +1,13 @@
-import express from 'express'
 import next from 'next'
-import {router as apiRouter} from '../routes/api';
+import express from 'express';
+import {setup} from './setup';
 
 const port = parseInt(process.env.PORT || '3000', 10)
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
-const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
-  const server = express();
-
-  server.use('/api', apiRouter);
-  
-
-  server.all('*', (req, res) => handle(req, res));
+  const server = setup(app, express());
 
   server.listen(port, err => {
     if (err) throw err
